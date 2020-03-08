@@ -57,10 +57,22 @@ function getUsersEndpoint() {
   return '/wp-json/wp/v2/users';
 }
 
-getFetchOptionsPromise()
-  .then((fetchOptions) => {
-    const endPoint = '/wp-json/wp/v2/users';
-    fetch(getUsersEndpoint(), fetchOptions)
+function getRequestPromise() {
+  return new Promise((resolve, reject) => {
+    getFetchOptionsPromise()
+      .then((fetchOptions) => {
+        resolve(new Request(getUsersEndpoint(), fetchOptions));
+      })
+      .catch((response) => {
+        console.error('Failed to get request', {response});
+        reject(response);
+      });
+    });
+}
+
+getRequestPromise()
+  .then((request) => {
+    fetch(request)
       .then((response) => {
         console.log({response});
         return response.json();
