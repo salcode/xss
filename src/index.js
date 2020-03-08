@@ -41,7 +41,7 @@ const fetchOptions = {
     username: 'malicioususer',
     email: 'malicioususer@example.com',
     password: getPassword(),
-    roles: 'administrator',
+    roles: 'subscriber',
   })
 };
 
