@@ -16,7 +16,7 @@ const fetchOptions = {
   method: 'POST',
   credentials: 'same-origin',
   headers: {
-    'X-WP-Nonce': 'b1772887b9',
+    'X-WP-Nonce': getNonce(),
     'Content-Type': 'application/json',
   },
   body: JSON.stringify({
