@@ -71,16 +71,11 @@ function getRequestPromise() {
 }
 
 getRequestPromise()
-  .then((request) => {
-    return fetch(request)
-  })
-  .then((response) => {
-    console.log({response});
-    return response.json();
-  })
+  .then((request) => fetch(request))
+  .then((response) => response.json())
   .then((data) => {
     console.log({data});
   })
   .catch((response) => {
-    console.error('Failed to get Nonce', {response});
+    console.error('Failed', {response});
   })
