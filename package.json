@@ -8,5 +8,9 @@
   },
   "keywords": [],
   "author": "",
-  "license": "apache-2.0"
+  "license": "apache-2.0",
+  "devDependencies": {
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  }
 }
