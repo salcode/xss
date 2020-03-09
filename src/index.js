@@ -47,12 +47,25 @@ function getFetchOptionsPromise() {
 }
 
 /**
+ * Get the WP REST API base URL.
+ *
+ * @return string WP REST API base URL.
+ */
+function getAPIURL() {
+  const links = document.getElementsByTagName( 'link' );
+  const link = Array.prototype.filter.call( links, function ( item ) {
+      return ( item.rel === 'https://api.w.org/' );
+  } );
+  return link[0].href;
+}
+
+/**
  * Get the WP REST API endpoint for users.
  *
  * @return string WP REST API endpoint for users.
  */
 function getUsersEndpoint() {
-  return '/wp-json/wp/v2/users';
+  return getAPIURL() + 'wp/v2/users';
 }
 
 function getRequestPromise() {
